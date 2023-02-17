@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#/">Home</a></li>
+                <li><a href="#/about">About</a></li>
+                <li><a href="#/404">Not Found</a></li>
+            </ul>
+
+    </header>
+    <main>
+        {% block content %}
+        {{ content }}
+        {% endblock %}
+        
+    </main>
+</body>
+<script>
+    function loadContent(url) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                document.getElementById('content').innerHTML = xhr.responseText;
+            }
+        };
+        xhr.send();
+    }
+
+    function loadPage() {
+        var hash = window.location.hash.substr(1);
+        if (hash === '') {
+            loadContent('/index.html');
+        } else {
+            loadContent('/' + hash + '.html');
+        }
+    }
+
+    window.addEventListener('hashchange', loadPage);
+    loadPage();
+</script>
+
+
+</html>
