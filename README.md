@@ -1,6 +1,6 @@
 # Pesapal Attempt
 
-This is a Python repository which attempts for dealing with word pluralization.
+
 This is a Python repository which attempts to solve Problem 1 from <a href="https://pesapal.freshteam.com/jobs/2OU7qEKgG4DR/junior-developer-23">the Pesapal Careers portal.
 
 ## Installation
@@ -34,7 +34,7 @@ In the templates folder you will find all templates that can be used with this s
 
 The content is where markdown files are stored, in the root of the content folder, there is a posts folder which is where all the posts go, There are other files such as the about.md and index.md which are essential for this static site generator. 
 
-The output goes in the output folder, this can now be used to create your desired static site. Implementation can be done in different ways such as using a CDN or different hosting services. I chose to host the result using render, which can be found <a href="https://pesapal-ssg.onrender.com">here
+The output goes in the output folder, this can now be used to create your desired static site. Implementation can be done in different ways such as using a CDN or different hosting services. I chose to host the result using render, which can be found <a href="https://pesapal-ssg.onrender.com">here.
 
 
 
