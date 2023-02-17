@@ -4,21 +4,9 @@ import markdown
 from jinja2 import Environment, FileSystemLoader
 
 
-def generate_routes(content_dir):
-    routes = []
-    for root, _, files in os.walk(content_dir):
-        for file in files:
-            if file.endswith(".md"):
-                file_path = os.path.join(root, file)
-                route = {
-                    "name": os.path.splitext(file)[0],
-                    "url": os.path.relpath(file_path, content_dir).replace("\\", "/").replace(".md", ".html")
-                }
-                routes.append(route)
-    return routes
-
-
 def generate_post_routes(input_dir):
+    '''This function generates routes which will be used to create links to all posts.
+    The function returns a list of dictionaries containing the name and the relative path of the post.'''
     posts_dir = os.path.join(input_dir, 'posts')
     post_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk(
         posts_dir) for f in filenames if os.path.splitext(f)[1] == '.md']
@@ -32,6 +20,7 @@ def generate_post_routes(input_dir):
 
 
 def generate_index_page(input_dir, output_dir, index_template, base_template, routes):
+    '''This function creates the index page, it parses the markdown and uses the list of routes to generate links to the posts dynamically.'''
     index_content = read_markdown(os.path.join(input_dir, "index.md"))
     index_html = index_template.render(
         title=index_content["title"], content=index_content["html"], routes=routes)
@@ -40,9 +29,16 @@ def generate_index_page(input_dir, output_dir, index_template, base_template, ro
 
 
 def main():
-    input_dir = "content"
+    # we initialize the input directory to a folder named content.
+    input_dir = "content" 
+
+    # we initialize the output directory to a folder named output.
     output_dir = "output"
+
+    # this is the location of the templates.
     templates_dir = "templates"
+
+    # this is the location of the static files.
     static_dir = "static"
 
     # Copying the static files to the output directory
@@ -75,7 +71,7 @@ def main():
                 os.path.join(output_dir, "about.html"))
     
 
-    # Generate the article pages
+    # Generating the article pages
     posts_dir = os.path.join(input_dir, "posts")
     for filename in os.listdir(posts_dir):
         if not filename.endswith(".md"):
